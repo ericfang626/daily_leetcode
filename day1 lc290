@@ -1,0 +1,36 @@
+class Solution {
+    public boolean wordPattern(String pattern, String s) {
+        Map<String, Character> map = new HashMap<>();
+        Map<Character, String> map2 = new HashMap<>();
+        int i = 0;
+        int patterni = 0;
+        while(i < s.length()) {
+            String cur = "";
+            if(patterni >= pattern.length()) return false;
+            char c = pattern.charAt(patterni);
+            int j = 0;
+            for(j = i; j <= s.length(); j++) {
+                if(j == s.length()) cur = s.substring(i, j);
+                else if(s.charAt(j) == ' ') {
+                    cur = s.substring(i, j);
+                    break;
+                }
+            }
+            if(map2.containsKey(c)) {
+                if(!cur.equals(map2.get(c))) return false;
+            } else {
+                map2.put(c, cur);
+            }
+
+            if(map.containsKey(cur)) {
+                if(map.get(cur) != c) return false;
+            }else {
+                map.put(cur, c);
+            }
+
+            i = j + 1;
+            patterni++;
+        }
+        return patterni == pattern.length() ? true : false;
+    }
+}
