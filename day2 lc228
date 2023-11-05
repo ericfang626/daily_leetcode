@@ -1,0 +1,23 @@
+class Solution {
+    public List<String> summaryRanges(int[] nums) {
+        List<String> res = new ArrayList<>();
+
+        int i = 0;
+        while(i < nums.length) {
+            if(i == nums.length - 1 || nums[i] != nums[i+1] - 1) {
+                res.add(nums[i] + "");
+                i++;
+                continue;
+            }
+            int fast = i;
+            int validNum = nums[i];
+            while(fast < nums.length && nums[fast] == validNum) {
+                validNum++;
+                fast++;
+            }
+            res.add(nums[i] + "->" + nums[fast-1]);
+            i = fast;
+        }
+        return res;
+    }
+}
