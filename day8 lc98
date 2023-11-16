@@ -1,0 +1,15 @@
+class Solution {
+    long max = Long.MIN_VALUE;
+    boolean res = true;
+    public boolean isValidBST(TreeNode root) {
+        traversal(root);
+        return res;
+    }
+    public void traversal(TreeNode root) {
+        if(root == null) return;
+        traversal(root.left);
+        if(root.val <= max) res = false;
+        max = Math.max(max, root.val);
+        traversal(root.right);
+    }
+}
